@@ -1,5 +1,5 @@
 import { Client, GatewayIntentBits, REST, Routes, Events, MessageFlags, SlashCommandBuilder } from 'discord.js';
-import {command} from "./commands/utility/ping.js"
+import {command, type SlashCommandBuilderI} from "./commands/utility/index.js"
 import dotenv from "dotenv"
 
 dotenv.config();
@@ -13,12 +13,10 @@ const client = new Client({
 if (process.env.TOKEN) {
 const rest = new REST().setToken(process.env.TOKEN);
     // console.log(process.env.CLIENT_ID);
-(async () => {
     await rest.put(
         Routes.applicationCommands(process.env.CLIENT_ID || ""),
-        { body: [command.toJSON()] },
+        { body: [command.builder.toJSON()] },
     );
-})();
 
 }
 
@@ -29,8 +27,10 @@ client.once(Events.ClientReady, readyClient => {
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
 
+    interaction.client.user.tag
+
 	if (interaction.commandName === 'ping') {
-		await interaction.reply({ content: 'Secret Pong!' });
+		await interaction.reply({ content: 'Secret ping Ponga!' });
 	}
 });
 

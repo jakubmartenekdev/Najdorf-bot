@@ -40,5 +40,5 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
   },
-  "include": ["src/**/*.ts", "src/commands/utility/**/*.ts"],
+  "include": ["src/**/*.ts"],
 }
