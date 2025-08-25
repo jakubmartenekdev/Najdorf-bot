@@ -1,16 +1,12 @@
 import { Client, GatewayIntentBits, REST, Routes, Events, MessageFlags, SlashCommandBuilder } from 'discord.js';
-import { command } from "./commands/utility/index.js";
+// import {command, type SlashCommandBuilderI} from "./commands/utility/index.js"
+import { AppClient } from "./utils/client.js";
 import dotenv from "dotenv";
 dotenv.config();
-const client = new Client({
+const client = new AppClient({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
 });
-// client.
-if (process.env.TOKEN) {
-    const rest = new REST().setToken(process.env.TOKEN);
-    // console.log(process.env.CLIENT_ID);
-    await rest.put(Routes.applicationCommands(process.env.CLIENT_ID || ""), { body: [command.builder.toJSON()] });
-}
+await client.init();
 client.once(Events.ClientReady, readyClient => {
     console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
