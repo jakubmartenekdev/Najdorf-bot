@@ -3,7 +3,7 @@ import * as fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import type { AppClient } from "../utils/client.js";
-import { REST, Routes } from "discord.js";
+import { Client, REST, Routes } from "discord.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -57,7 +57,7 @@ export async function registerCommands(client: AppClient) {
         const rest = new REST().setToken(process.env.TOKEN);
         for (let [_, command] of client.commands) {
             commandsJson.push(command.builder.toJSON());
-            console.log(command.builder.toJSON());
+            // console.log(command.builder.toJSON());
         }
         await rest.put(
             Routes.applicationCommands(process.env.CLIENT_ID || ""),

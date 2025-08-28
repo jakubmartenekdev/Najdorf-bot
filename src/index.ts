@@ -1,5 +1,4 @@
 import { Client, GatewayIntentBits, REST, Routes, Events, MessageFlags, SlashCommandBuilder } from 'discord.js';
-// import {command, type SlashCommandBuilderI} from "./commands/utility/index.js"
 import {AppClient} from "./utils/client.js";
 import dotenv from "dotenv"
 
@@ -18,10 +17,12 @@ client.once(Events.ClientReady, readyClient => {
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
 
-    interaction.client.user.tag
+	const command = interaction.client.commands.get(interaction.commandName);
 
-	if (interaction.commandName === 'ping') {
-		await interaction.reply({ content: 'Secret ping Ponga!' });
+	try {
+		await command?.execute(interaction);
+	} catch (error) {
+		console.error(error);
 	}
 });
 

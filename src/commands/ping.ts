@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, type CacheType, type Interaction } from "discord.js";
+import { Collection, SlashCommandBuilder, type CacheType, type Interaction } from "discord.js";
 import type { Command } from "./types.js"
 
 export let command: Command = {
@@ -7,15 +7,10 @@ export let command: Command = {
 		.setDescription('Replies with Pong!'),
 	visibility: true,
 
-	async execute(interaction: Interaction<CacheType>) {
+	async execute(interaction: Interaction) {
 		if (!interaction.isChatInputCommand()) return;
 
-		const command = interaction.client.commands.get(interaction.commandName);
-
-		try {
-			await command.execute(interaction);
-		} catch (error) {
-			console.error(error);
-		}
+		interaction.reply({content: "Pong!", ephemeral: true});
+		
 	},
 }
