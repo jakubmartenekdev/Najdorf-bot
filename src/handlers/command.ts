@@ -29,7 +29,7 @@ export async function loadCommands(client: AppClient) {
             if (!isSlashCommand(command)) return;
 
             if (command?.visibility == false) {
-                console.log(`[WARNING] module at ${modulePath} was not loaded!`);
+                console.log(`[WARNING] module at ${modulePath} was skipped!`);
                 continue;
             }
             client.commands.set(command.builder.name, command);
