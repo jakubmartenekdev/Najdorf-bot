@@ -16,6 +16,7 @@
     "tsx": "^4.20.4"
   },
   "dependencies": {
+    "astronomy-engine": "^2.1.19",
     "discord.js": "^14.21.0",
     "dotenv": "^17.2.1"
   }
